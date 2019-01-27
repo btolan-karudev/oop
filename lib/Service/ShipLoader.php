@@ -45,9 +45,19 @@ class ShipLoader
         return $this->createShipsFromData($shipArray);
     }
 
+    /**
+     * @param array $shipsDatum
+     * @return Ship
+     * @throws Exception
+     */
     private function createShipsFromData(array $shipsDatum)
     {
-        $ship = new Ship($shipsDatum['name']);
+        if ($shipsDatum['team'] == 'rebel') {
+            $ship = new RebelShip($shipsDatum['name']);
+        } else {
+            $ship = new Ship($shipsDatum['name']);
+        }
+
         $ship->setId($shipsDatum['id']);
         $ship->setWeaponPower($shipsDatum['weapon_power']);
         $ship->setStrength($shipsDatum['strength']);
