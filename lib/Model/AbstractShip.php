@@ -6,7 +6,7 @@
  * Time: 19:09
  */
 
-class AbstractShip
+abstract class AbstractShip
 {
     private $id;
 
@@ -15,6 +15,10 @@ class AbstractShip
     private $weaponPower = 0;
 
     private $strength = 0;
+
+    abstract public function getJediFactor();
+    abstract public function isFunctional();
+    abstract public function getType();
 
     /**
      * AbstractShip constructor.

@@ -10,7 +10,7 @@ class ShipLoader
     }
 
     /**
-     * @return Ship[]
+     * @return AbstractShip[]
      * @throws Exception
      */
     public function getShips()
@@ -28,7 +28,8 @@ class ShipLoader
 
     /**
      * @param $id
-     * @return Ship|null
+     * @return AbstractShip|null
+     * @throws Exception
      */
     public function findOneById($id)
     {
@@ -47,7 +48,7 @@ class ShipLoader
 
     /**
      * @param array $shipsDatum
-     * @return Ship
+     * @return AbstractShip
      * @throws Exception
      */
     private function createShipsFromData(array $shipsDatum)
