@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ThinkCenter
- * Date: 27/01/2019
- * Time: 19:09
- */
 
 abstract class AbstractShip
 {
