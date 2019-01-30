@@ -24,6 +24,7 @@ if (isset($_GET['error'])) {
             $errorMessage = 'There was a disturbance in the force. Try again.';
     }
 }
+
 ?>
 
 <html>

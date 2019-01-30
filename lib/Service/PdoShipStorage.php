@@ -1,6 +1,6 @@
 <?php
 
-class PdoShipStorage
+class PdoShipStorage extends AbstractShipStorage
 {
     private $pdo;
 
@@ -20,7 +20,7 @@ class PdoShipStorage
 
     }
 
-    public function fetchSingleShipData()
+    public function fetchSingleShipData($id)
     {
         $pdo = $this->pdo;
 
