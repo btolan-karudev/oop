@@ -1,25 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ThinkCenter
- * Date: 19/01/2019
- * Time: 22:21
- */
+
+namespace Battle;
+
+use AbstractShip;
+use BattleResult;
 
 class BattleManager
 {
     /**
      * normal battle
      */
-    const TYPE_NORMAL = 'NORMAL';
+    const TYPE_NORMAL = 'Normal';
     /**
      * down't alow jedi powers
      */
-    const TYPE_NO_JEDI = 'NO_JEDI';
+    const TYPE_NO_JEDI = 'No Jedi Powers';
     /**
      * you can only win with jedi powers
      */
-    const TYPE_ONLY_JEDI = 'ONLY_JEDI';
+    const TYPE_ONLY_JEDI = 'Only Jedi Powers';
 
     /**
      * Our complex fighting algorithm!
@@ -28,8 +27,9 @@ class BattleManager
      * @param $ship1Quantity
      * @param AbstractShip $ship2 Quantity
      * @param $ship2Quantity
+     * @param $battleType
      * @return BattleResult With keys winning_ship, losing_ship & used_jedi_powers
-     * @throws Exception
+     * @throws \Exception
      */
     public function battle(AbstractShip $ship1, $ship1Quantity, AbstractShip $ship2, $ship2Quantity, $battleType)
     {
@@ -91,8 +91,17 @@ class BattleManager
 
     }
 
+    public static function getAllBattleTypesWithDescription()
+    {
+        return array(
+            self::TYPE_NORMAL => 'Normal',
+            self::TYPE_NO_JEDI => 'No Jedi Powers',
+            self::TYPE_ONLY_JEDI => 'Only Jedi Powers'
+        );
+    }
+
     /**
-     * @param Ship $ship
+     * @param AbstractShip $ship
      * @return bool
      */
     private function didJediDestroyShipUsingTheForce(AbstractShip $ship)

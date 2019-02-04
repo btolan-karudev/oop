@@ -1,4 +1,7 @@
 <?php
+
+use Battle\BattleManager;
+
 require __DIR__ . '/bootstrap.php';
 
 $container = new Container($configuration);
@@ -7,6 +10,8 @@ $ships = $shipLoader->getShips();
 
 $brokenShip = new BrokenShip('BongoBroke');
 $ships[] = $brokenShip;
+
+$battleTypes = BattleManager::getAllBattleTypesWithDescription();
 
 $errorMessage = '';
 if (isset($_GET['error'])) {
@@ -27,11 +32,6 @@ if (isset($_GET['error'])) {
 
 ?>
 
-<?php
-$queue = array(1, 2);
-array_unshift($queue, 0, 4);
-print_r($queue);
-?>
 
 <html>
 <head>
@@ -135,12 +135,9 @@ print_r($queue);
                     <label for="battle_type">Battle Type</label>
                     <select name="battle_type" id="battle_type" class="form-control drp-dwn-width center-block">
 
-<!--                        --><?php //foreach ($battleTypes as $battleType => $typeText): ?>
-<!--                            <option value="--><?php //echo $battleType ?><!--">--><?php //echo $typeText; ?><!--</option>-->
-                            <option value="<?php BattleManager::TYPE_NORMAL ?>">Normal</option>
-                            <option value="<?php BattleManager::TYPE_NO_JEDI ?>">No jedi Powers</option>
-                            <option value="<?php BattleManager::TYPE_ONLY_JEDI ?>">Only Jedi powers</option>
-<!--                        --><?php //endforeach; ?>
+                        <?php foreach ($battleTypes as $battleType => $typeText): ?>
+                            <option value="<?php echo $battleType ?>"><?php echo $typeText; ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 
