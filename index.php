@@ -27,6 +27,12 @@ if (isset($_GET['error'])) {
 
 ?>
 
+<?php
+$queue = array(1, 2);
+array_unshift($queue, 0, 4);
+print_r($queue);
+?>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -113,6 +119,7 @@ if (isset($_GET['error'])) {
                 <br>
                 <input class="center-block form-control text-field" type="text" name="ship2_quantity"
                        placeholder="Enter Number of Ships"/>
+
                 <select class="center-block form-control btn drp-dwn-width btn-default dropdown-toggle"
                         name="ship2_id">
                     <option value="">Choose a Ship</option>
@@ -123,6 +130,22 @@ if (isset($_GET['error'])) {
                     <?php endforeach; ?>
                 </select>
                 <br>
+
+                <div class="text-center">
+                    <label for="battle_type">Battle Type</label>
+                    <select name="battle_type" id="battle_type" class="form-control drp-dwn-width center-block">
+
+<!--                        --><?php //foreach ($battleTypes as $battleType => $typeText): ?>
+<!--                            <option value="--><?php //echo $battleType ?><!--">--><?php //echo $typeText; ?><!--</option>-->
+                            <option value="<?php BattleManager::TYPE_NORMAL ?>">Normal</option>
+                            <option value="<?php BattleManager::TYPE_NO_JEDI ?>">No jedi Powers</option>
+                            <option value="<?php BattleManager::TYPE_ONLY_JEDI ?>">Only Jedi powers</option>
+<!--                        --><?php //endforeach; ?>
+                    </select>
+                </div>
+
+                <br/>
+
                 <button class="btn btn-md btn-danger center-block" type="submit">Engage</button>
             </form>
         </div>

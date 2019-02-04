@@ -9,6 +9,19 @@
 class BattleManager
 {
     /**
+     * normal battle
+     */
+    const TYPE_NORMAL = 'NORMAL';
+    /**
+     * down't alow jedi powers
+     */
+    const TYPE_NO_JEDI = 'NO_JEDI';
+    /**
+     * you can only win with jedi powers
+     */
+    const TYPE_ONLY_JEDI = 'ONLY_JEDI';
+
+    /**
      * Our complex fighting algorithm!
      *
      * @param AbstractShip $ship1
@@ -18,31 +31,41 @@ class BattleManager
      * @return BattleResult With keys winning_ship, losing_ship & used_jedi_powers
      * @throws Exception
      */
-    public function battle(AbstractShip $ship1, $ship1Quantity, AbstractShip $ship2, $ship2Quantity)
+    public function battle(AbstractShip $ship1, $ship1Quantity, AbstractShip $ship2, $ship2Quantity, $battleType)
     {
         $ship1Health = $ship1->getStrength() * $ship1Quantity;
         $ship2Health = $ship2->getStrength() * $ship2Quantity;
 
         $ship1UsedJediPowers = false;
         $ship2UsedJediPowers = false;
+        $i = 0;
         while ($ship1Health > 0 && $ship2Health > 0) {
             // first, see if we have a rare Jedi hero event!
-            if ($this->didJediDestroyShipUsingTheForce($ship1)) {
+            if ($battleType != self::TYPE_NO_JEDI && $this->didJediDestroyShipUsingTheForce($ship1)) {
                 $ship2Health = 0;
                 $ship1UsedJediPowers = true;
 
                 break;
             }
-            if ($this->didJediDestroyShipUsingTheForce($ship2)) {
+            if ($battleType != self::TYPE_NO_JEDI && $this->didJediDestroyShipUsingTheForce($ship2)) {
                 $ship1Health = 0;
                 $ship2UsedJediPowers = true;
 
                 break;
             }
 
-            // now battle them normally
-            $ship1Health = $ship1Health - ($ship2->getWeaponPower() * $ship2Quantity);
-            $ship2Health = $ship2Health - ($ship1->getWeaponPower() * $ship1Quantity);
+            if ($battleType != self::TYPE_ONLY_JEDI) {
+                // now battle them normally
+                $ship1Health = $ship1Health - ($ship2->getWeaponPower() * $ship2Quantity);
+                $ship2Health = $ship2Health - ($ship1->getWeaponPower() * $ship1Quantity);
+            }
+
+            if ($i == 100) {
+                $ship1Health = 0;
+                $ship2Health = 0;
+            }
+            $i++;
+
         }
 
         $ship1->setStrength($ship1Health);
