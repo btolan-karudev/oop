@@ -17,11 +17,17 @@ class ShipLoader
 
     /**
      * @return AbstractShip[]
-     * @throws Exception
+     * @throws \Exception
      */
     public function getShips()
     {
-        $shipsData = $this->shipStorage->fetchAllShipsData();
+        try {
+            $shipsData = $this->shipStorage->fetchAllShipsData();
+        } catch (\Exception $e) {
+            trigger_error('Exception! '.$e->getMessage());
+            $shipsData = [];
+        }
+
 
         $ships = [];
 

@@ -75,12 +75,12 @@ abstract class AbstractShip
 
     /**
      * @param int $strength
-     * @throws Exception
+     * @throws \Exception
      */
     public function setStrength($strength)
     {
         if (!is_numeric($strength)) {
-            throw new UnexpectedValueException('Invalid strength passed ' . $strength);
+            throw new \Exception('Invalid strength passed ' . $strength);
         }
 
         $this->strength = $strength;
