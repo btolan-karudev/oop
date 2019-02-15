@@ -5,6 +5,7 @@ namespace Service;
 use Model\AbstractShip;
 use Model\RebelShip;
 use Model\Ship;
+use PDOException;
 
 class ShipLoader
 {
@@ -17,14 +18,14 @@ class ShipLoader
 
     /**
      * @return AbstractShip[]
-     * @throws \Exception
      */
     public function getShips()
     {
         try {
             $shipsData = $this->shipStorage->fetchAllShipsData();
-        } catch (\Exception $e) {
-            trigger_error('Exception! '.$e->getMessage());
+        } catch (\PDOException $e) {
+            var_dump($e);
+            trigger_error('Database Exception! ' . $e->getMessage());
             $shipsData = [];
         }
 
