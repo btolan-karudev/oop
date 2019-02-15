@@ -67,15 +67,15 @@ $battleResult = $battleManager->battle($ship1, $ship1Quantity, $ship2, $ship2Qua
         <p class="text-center">
             <br>
             <?php echo $ship1Quantity; ?> <?php /** @var Ship $ship1 */
-            echo $ship1->getName(); ?> <?php echo $ship1Quantity > 1 ? 's' : ''; ?>
+            echo $ship1; ?> <?php echo $ship1Quantity > 1 ? 's' : ''; ?>
             VS.
             <?php echo $ship2Quantity; ?> <?php /** @var Ship $ship2 */
-            echo $ship2->getName(); ?> <?php echo $ship2Quantity > 1 ? 's' : ''; ?>
+            echo $ship2; ?> <?php echo $ship2Quantity > 1 ? 's' : ''; ?>
         </p>
     </div>
-<!--    --><?php
-//    echo '<pre>' , var_dump($outcome) , '</pre>';
-//    ?>
+    <!--    --><?php
+    //    echo '<pre>' , var_dump($outcome) , '</pre>';
+    //    ?>
     <div class="result-box center-block">
         <h3 class="text-center audiowide">
             Winner:

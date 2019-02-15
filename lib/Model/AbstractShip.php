@@ -125,4 +125,18 @@ abstract class AbstractShip
     {
         $this->id = $id;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    public function __get($name)
+    {
+        return $this->name;
+    }
+
 }
