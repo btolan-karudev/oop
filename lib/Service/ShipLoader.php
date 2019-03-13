@@ -5,7 +5,8 @@ namespace Service;
 use Model\AbstractShip;
 use Model\RebelShip;
 use Model\Ship;
-use PDOException;
+use Model\ShipCollection;
+
 
 class ShipLoader
 {
@@ -17,7 +18,7 @@ class ShipLoader
     }
 
     /**
-     * @return AbstractShip[]
+     * @return ShipCollection
      */
     public function getShips()
     {
@@ -36,7 +37,7 @@ class ShipLoader
             $ships[] = $this->createShipsFromData($shipsDatum);
         }
 
-        return $ships;
+        return new ShipCollection($ships);
     }
 
     /**

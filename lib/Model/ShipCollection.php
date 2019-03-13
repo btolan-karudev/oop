@@ -1,53 +1,26 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ThinkCenter
+ * Date: 13/03/2019
+ * Time: 16:51
+ */
 
 namespace Model;
 
-class BattleResult implements \ArrayAccess
+
+use Traversable;
+
+class ShipCollection implements \ArrayAccess, \IteratorAggregate
 {
-    private $usedJediPowers;
-    private $winningShip;
-    private $losingShip;
-
     /**
-     * BattleResult constructor.
-     * @param $usedJediPowers
-     * @param Ship $winningShip
-     * @param Ship $losingShip
+     * @var AbstractShip[]
      */
-    public function __construct($usedJediPowers, AbstractShip $winningShip = null, AbstractShip $losingShip = null)
-    {
-        $this->usedJediPowers = $usedJediPowers;
-        $this->winningShip = $winningShip;
-        $this->losingShip = $losingShip;
-    }
+    private $ships;
 
-    /**
-     * @return boolean
-     */
-    public function wereJediPowersUsed()
+    public function __construct(array $ships)
     {
-        return $this->usedJediPowers;
-    }
-
-    /**
-     * @return Ship|null
-     */
-    public function getWinningShip()
-    {
-        return $this->winningShip;
-    }
-
-    /**
-     * @return Ship|null
-     */
-    public function getLosingShip()
-    {
-        return $this->losingShip;
-    }
-
-    public function isThereAWinner()
-    {
-        return $this->getWinningShip() !== null;
+        $this->ships = $ships;
     }
 
     /**
@@ -64,7 +37,7 @@ class BattleResult implements \ArrayAccess
      */
     public function offsetExists($offset)
     {
-        return property_exists($this, $offset);
+        return array_key_exists($offset, $this->ships);
     }
 
     /**
@@ -78,7 +51,7 @@ class BattleResult implements \ArrayAccess
      */
     public function offsetGet($offset)
     {
-        return $this->$offset;
+        return $this->ships[$offset];
     }
 
     /**
@@ -95,7 +68,7 @@ class BattleResult implements \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        $this->$offset = $value;
+        $this->ships[$offset] = $value;
     }
 
     /**
@@ -109,6 +82,28 @@ class BattleResult implements \ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        unset($this->$offset);
+        unset($this->ships[$offset]);
     }
+
+    /**
+     * Retrieve an external iterator
+     * @link https://php.net/manual/en/iteratoraggregate.getiterator.php
+     * @return Traversable An instance of an object implementing <b>Iterator</b> or
+     * <b>Traversable</b>
+     * @since 5.0.0
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->ships);
+    }
+
+    public function removeAllBrokenShips()
+    {
+        foreach ($this->ships as $key => $ship) {
+            if (!$ship->isFunctional()) {
+                unset($this->ships[$key]);
+            }
+        }
+    }
+
 }
